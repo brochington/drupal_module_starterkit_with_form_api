@@ -1,0 +1,102 @@
+<?php
+/**
+ * @file
+ * Place your description of this file here...
+ * Module development reference: https://www.drupal.org/node/1074360
+ * don't forget to replace 'starterkit' with whatever your module
+ * is named!
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function starterkit_menu() {
+	$items = array();
+
+
+	/* 
+	Default menu addition for an admin page that uses the Form API.
+	More info about the Form API can be found @:
+	https://api.drupal.org/api/drupal/developer!topics!forms_api_reference.html/7
+	*/
+	$items['admin/config/development/starterkit'] = array(
+		'title' => 'NFL Starter Kit',
+		'description' => 'This is a Starter kit for Modules',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('starterkit_settings_form'),
+		'access arguments' => array('administer files'),
+		'file' => 'includes/starterkit.admin.inc',
+	);
+
+	return $items;
+};
+
+/**
+ * Implements hook_block_info().
+ */
+function starterkit_block_info() {
+	$blocks = array();
+
+	$blocks['starterkit'] = array(
+		'info' => t('Starter Kit'),
+		'cache' => DRUPAL_NO_CACHE,
+	);
+
+	return $blocks;
+};
+
+/**
+ * Implements hook_block_view().
+ */
+function starterkit_block_view($block_name = '') {
+
+	if($block_name == 'starterkit') {
+		$content = array(
+			'#theme' => 'starterkit',
+			'#attached' => array(
+				'css' => array(
+					drupal_get_path('module', 'starterkit') . '/css/starterkit.css',
+				),
+				'js' => array(
+					drupal_get_path('module', 'starterkit') . '/js/starterkit.js',
+					// below is an example of how to pass information directly to JS
+					// array(
+					// 	'data' => array(
+					// 		'starterkir' => array(
+					// 			'userName' => 'StarterKit',
+					// 			'accessToken' => 12345,
+					// 		),
+					// 	),
+					// 	'type' => 'setting',
+					// ),
+				),
+			),
+		);
+
+		$block = array(
+			'subject' => t('Starter Kit Module'),
+			'content' => $content,
+		);
+
+		return $block;
+	};
+};
+
+/**
+ * Implements hook_theme().
+ */
+
+function starterkit_theme($existing, $type, $theme, $path) {
+	$theme_array = array();
+
+	$theme_array['starterkit'] =array(
+		'template' => 'starterkit',
+		'variables' => array(
+			'default' => 'variables go here',
+		),
+		'file' => 'starterkit.theme.inc',
+		'path' => $path . '/themes',
+	);
+
+	return $theme_array;
+}

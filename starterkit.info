@@ -1,0 +1,11 @@
+; Starting point for nfl clubs module development.
+; more info on info files can be found at
+; https://www.drupal.org/node/542202
+; HEAD'S UP: any time you create or change this .info file, you will need
+; to clear your site's cache for your changes to take effect.
+
+name = Starter Kit
+description = This is an NFL Starter Kit
+package = NFL Custom Modules
+core = 7.x
+files[] = starterkit.module
